@@ -1,0 +1,72 @@
+﻿@page "{searchString?}"
+@model WorkoutApp.Pages.Exercises.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<form>
+    <p>
+        Equipment: <select asp-for="ExerciseEquipment" asp-items="Model.Equipments">
+            <option value="">All</option>
+        </select>
+        Muscle Group: <select asp-for="ExerciseMuscle" asp-items="Model.MuscleGroups">
+            <option value="">All</option>
+        </select>
+        Name: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Exercise[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Exercise[0].MuscleGroup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Exercise[0].Difficulty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Exercise[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Exercise[0].Equipment)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Exercise) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MuscleGroup)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Difficulty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipment)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
